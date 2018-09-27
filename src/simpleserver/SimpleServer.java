@@ -13,6 +13,8 @@ class SimpleServer {
     try {
       ding = new ServerSocket(1299);
       System.out.println("Opened socket " + 1299);
+
+      // **Make Database class and load data
       while (true) {
 
         // keeps listening for new clients, one at a time
@@ -28,7 +30,7 @@ class SimpleServer {
         try {
 
           // read the first line to get the request method, URI and HTTP version
-          String line = in.readLine();
+          String line = in.readLine();      //**Split string and get arg[1]
           System.out.println("----------REQUEST START---------");
           System.out.println(line);
           // read only headers
@@ -55,11 +57,16 @@ class SimpleServer {
         writer.println("HTTP/1.1 200 OK");
         writer.println("Server: TEST");
         writer.println("Connection: close");
-        writer.println("Content-type: text/html");
+        writer.println("Content-type: text/html"); //** Content-type: application/json
         writer.println("");
 
         // Body of our response
-        writer.println("<h1>Some cool response!</h1>");
+        // ** put rest of logic here
+        //  1. check if input (url) is valid or not!
+        //  2. extract the query separated by '&'
+        // then use factory
+        // processor.process()
+        writer.println("<h1>Some cool response!</h1>"); //**outputs (gson.toJson(response))
 
         dong.close();
       }
