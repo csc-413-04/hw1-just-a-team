@@ -1,15 +1,35 @@
 package simpleserver;
 
+import com.oracle.javafx.jmx.json.JSONException;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Iterator;
 
 class SimpleServer {
 
-  public static void main(String[] args) throws IOException {
+  public static void jsonToMap(String t) throws JSONException {
     ServerSocket ding;
     Socket dong = null;
     String resource = null;
+
+    HashMap<String, String> map = new HashMap<String, String>();
+    JSONObject jObject = new JSONObject(t);
+    Iterator<?> keys = jObject.keys();
+
+    While(keys.hasNext()){
+      String key = (String) keys.next();
+      String value = jObject.getString(key);
+      map.put(key, value);
+
+
+    }
+
+    System.out.println("json : "+jObject);
+    System.out.println("map : "+map);
+
     try {
       ding = new ServerSocket(1299);
       System.out.println("Opened socket " + 1299);
@@ -67,5 +87,8 @@ class SimpleServer {
       System.out.println("Error opening socket");
       System.exit(1);
     }
+  }
+
+  private static void While(boolean hasNext) {
   }
 }
