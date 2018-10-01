@@ -10,27 +10,15 @@ import java.util.Iterator;
 
 class SimpleServer {
 
-  public static void jsonToMap(String t) throws JSONException {
+  public static <TypeToken, Gson> void main(String[] args) throws JSONException {
     ServerSocket ding;
     Socket dong = null;
     String resource = null;
 
-    HashMap<String, String> map = new HashMap<String, String>();
-    JSONObject jObject = new JSONObject(t);
-    Iterator<?> keys = jObject.keys();
+    String jsonString = "Your JSON string";
+    HashMap<String,String> map = new Gson().fromJson(jsonString, new TypeToken<HashMap<String, String>>(){}.getType());
 
-    While(keys.hasNext()){
-      String key = (String) keys.next();
-      String value = jObject.getString(key);
-      map.put(key, value);
-
-
-    }
-
-    System.out.println("json : "+jObject);
-    System.out.println("map : "+map);
-
-    try {
+      try {
       ding = new ServerSocket(1299);
       System.out.println("Opened socket " + 1299);
       while (true) {
@@ -89,6 +77,6 @@ class SimpleServer {
     }
   }
 
-  private static void While(boolean hasNext) {
-  }
+
+
 }
