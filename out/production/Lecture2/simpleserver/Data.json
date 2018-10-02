@@ -1,7 +1,35 @@
 {
-  "status": "OK",
-  "entries" : 2,
-  "data" : [
+  "users":[
+    {
+      "username" : "rey",
+      "userid" : 0
+    },
+    {
+      "username" : "lukeSkywalker",
+      "userid" : 1
+    },
+    {
+      "username" : "daenerysStormborn",
+      "userid" : 2
+    },
+    {
+      "username" : "khalDrogo",
+      "userid" : 3
+    },
+    {
+      "username" : "batman",
+      "userid" : 4
+    },
+    {
+      "username" : "spiderman",
+      "userid" : 5
+    },
+    {
+      "username" : "loki",
+      "userid" : 6
+    }
+  ],
+  "posts":[
     {
       "postid":0,
       "userid": 1,
@@ -11,6 +39,26 @@
       "postid":1,
       "userid": 0,
       "data": "Found lightsaber, looking for owner"
+    },
+    {
+      "postid":3,
+      "userid": 1,
+      "data": "Guess How many dragons I have"
+    },
+    {
+      "postid":87,
+      "userid": 6,
+      "data": "I died a couple times, but not really, but then I died for real"
+    },
+    {
+      "postid":777,
+      "userid": 5,
+      "data": "xbox is salty about no spiderman"
+    },
+    {
+      "postid":747,
+      "userid": 5,
+      "data": "So season 8 right?"
     }
   ]
 }

@@ -7,6 +7,11 @@ import java.net.Socket;
 class SimpleServer {
 
   public static void main(String[] args) throws IOException {
+
+    Response.initializeUsers();
+    Response.initializePosts();
+    String urlLink = null;
+
     ServerSocket ding;
     Socket dong = null;
     String resource = null;
@@ -26,7 +31,7 @@ class SimpleServer {
 
         InputStream stream = dong.getInputStream();
         BufferedReader in = new BufferedReader(new InputStreamReader(stream));
-        String urlLink = null;
+
         try {
 
           // read the first line to get the request method, URI and HTTP version
@@ -67,6 +72,8 @@ class SimpleServer {
         writer.println("<h4> Name: Tuan Le </h4>");
         writer.println("<p>Server: TEST</p>");
         writer.println("<p>Port: " + setPort + "</p>");
+
+        writer.println(Response.getBody(urlLink));
 
         dong.close();
       }
