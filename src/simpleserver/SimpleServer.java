@@ -10,9 +10,10 @@ class SimpleServer {
     ServerSocket ding;
     Socket dong = null;
     String resource = null;
+    int setPort = 1299;
     try {
-      ding = new ServerSocket(1299);
-      System.out.println("Opened socket " + 1299);
+      ding = new ServerSocket(setPort);
+      System.out.println("Opened socket " + setPort);
       while (true) {
 
         // keeps listening for new clients, one at a time
@@ -25,10 +26,12 @@ class SimpleServer {
 
         InputStream stream = dong.getInputStream();
         BufferedReader in = new BufferedReader(new InputStreamReader(stream));
+        String urlLink = null;
         try {
 
           // read the first line to get the request method, URI and HTTP version
           String line = in.readLine();
+          urlLink = line;
           System.out.println("----------REQUEST START---------");
           System.out.println(line);
           // read only headers
@@ -59,7 +62,11 @@ class SimpleServer {
         writer.println("");
 
         // Body of our response
-        writer.println("<h1>Some cool response!</h1>");
+        writer.println("<h2>HW1-Rest-API </h2>");
+        writer.println("<h2> Group: Just-a-team </h2>");
+        writer.println("<h4> Name: Tuan Le </h4>");
+        writer.println("<p>Server: TEST</p>");
+        writer.println("<p>Port: " + setPort + "</p>");
 
         dong.close();
       }
