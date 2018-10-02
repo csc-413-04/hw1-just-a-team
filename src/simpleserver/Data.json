@@ -1,7 +1,23 @@
 {
-  "status": "OK",
-  "entries" : 2,
-  "data" : [
+  "users": [
+    {
+      "username": "Tuan Le",
+      "userid": 0
+    },
+    {
+      "username": "Carlos Velasco",
+      "userid": 1
+    },
+    {
+      "username": "Frank Yang",
+      "userid": 2
+    },
+    {
+      "username": "Jia Wu",
+      "userid": 3
+    }
+  ],
+  "posts" : [
     {
       "postid":0,
       "userid": 1,
