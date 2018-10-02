@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3fcbeaf3-41cb-42f9-92fa-e8fb421d8a10" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/simpleserver/Posts.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/simpleserver/Users.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/com_google_code_gson_gson_2_8_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/simpleserver/Response.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/simpleserver/Data.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/simpleserver/Data.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lecture2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Lecture2.iml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,25 +24,25 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="255" />
+          <entry key="java" value="257" />
           <entry key="json" value="58" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="255" />
+          <entry key="JAVA" value="257" />
           <entry key="JSON" value="58" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="6" />
+          <entry key="java" value="7" />
           <entry key="json" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="6" />
+          <entry key="JAVA" value="7" />
           <entry key="JSON" value="2" />
         </counts>
       </usages-collector>
@@ -54,7 +54,7 @@
         <entry file="file://$PROJECT_DIR$/src/simpleserver/SimpleServer.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1139">
-              <caret line="67" column="46" lean-forward="true" selection-start-line="67" selection-start-column="46" selection-end-line="67" selection-end-column="46" />
+              <caret line="67" column="46" selection-start-line="67" selection-start-column="46" selection-end-line="67" selection-end-column="46" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -62,7 +62,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/simpleserver/Posts.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="476">
@@ -75,6 +75,18 @@
                 <element signature="e#554#555#0" expanded="true" />
                 <element signature="e#499#500#0" expanded="true" />
                 <element signature="e#520#521#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/simpleserver/Response.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="34" selection-start-line="4" selection-start-column="34" selection-end-line="4" selection-end-column="34" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -119,6 +131,7 @@
         <option value="$PROJECT_DIR$/src/simpleserver/Data.json" />
         <option value="$PROJECT_DIR$/src/simpleserver/Users.java" />
         <option value="$PROJECT_DIR$/src/simpleserver/Posts.java" />
+        <option value="$PROJECT_DIR$/src/simpleserver/Response.java" />
       </list>
     </option>
   </component>
@@ -166,11 +179,14 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1538441855104" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1538442271834" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../SimpleHTTPserverThatReturnsJSON" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
@@ -290,7 +306,7 @@
     <entry file="file://$PROJECT_DIR$/src/simpleserver/SimpleServer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1139">
-          <caret line="67" column="46" lean-forward="true" selection-start-line="67" selection-start-column="46" selection-end-line="67" selection-end-column="46" />
+          <caret line="67" column="46" selection-start-line="67" selection-start-column="46" selection-end-line="67" selection-end-column="46" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -344,6 +360,16 @@
             <element signature="e#554#555#0" expanded="true" />
             <element signature="e#499#500#0" expanded="true" />
             <element signature="e#520#521#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/simpleserver/Response.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="34" selection-start-line="4" selection-start-column="34" selection-end-line="4" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -406,6 +432,7 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
+                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>
@@ -425,6 +452,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
+          <last-edited>com.google.code.gson:gson:2.8.5</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
