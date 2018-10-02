@@ -74,6 +74,7 @@ class SimpleServer {
         writer.println("<p>Port: " + setPort + "</p>");
 
         writer.println(Response.getBody(urlLink));
+        System.out.println("SimpleServer: "+Response.getBody(urlLink));
 
         dong.close();
       }
