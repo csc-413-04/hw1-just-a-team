@@ -8,7 +8,7 @@ class SimpleServer {
   static String[] arg;
 
   public static String[] Parse(String str){
-    String[] split = str.split("/|\\?|=|&");
+    String[] split = str.split("/|\\?|=|&");  //parse
     return split;
   }
 
