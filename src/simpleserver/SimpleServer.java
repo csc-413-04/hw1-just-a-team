@@ -5,6 +5,12 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 class SimpleServer {
+  static String[] arg;
+
+  public static String[] Parse(String str){
+    String[] split = str.split("/|\\?|=|&");
+    return split;
+  }
 
   public static void main(String[] args) throws IOException {
     ServerSocket ding;
@@ -30,7 +36,8 @@ class SimpleServer {
         try {
 
           // read the first line to get the request method, URI and HTTP version
-          String line = in.readLine();      //**Split string and get arg[1]
+          String line = in.readLine();
+          arg = Parse(line);   //**Split string and get arg[1]
           System.out.println("----------REQUEST START---------");
           System.out.println(line);
           // read only headers
@@ -44,7 +51,7 @@ class SimpleServer {
             }
             line = in.readLine();
           }
-          System.out.println("----------REQUEST END---------\n\n");
+            System.out.println("----------REQUEST END---------\n\n");
         } catch (IOException e) {
           System.out.println("Error reading");
           System.exit(1);
