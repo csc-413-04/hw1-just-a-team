@@ -9,7 +9,8 @@ public class Posts {
 
     private final int postid;
     private final int userid;
-    private final String data;
+    //private  final String data;
+    private  String data;
 
 
     public Posts(int pid, int uid, String d) {
@@ -31,4 +32,10 @@ public class Posts {
     public String getData() {
         return data;
     }
+
+    public String setData(String d) {
+        data = d;
+        return data;
+    }
+
 }
