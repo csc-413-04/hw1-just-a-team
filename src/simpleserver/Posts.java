@@ -7,15 +7,15 @@ public class Posts {
 
     private final static Map<Integer, Posts> postidMap = new HashMap<>();
 
-    private final int postid;
     private final int userid;
+    private final int postid;
     private final String data;
 
 
-    public Posts(int pid, int uid, String d) {
+    public Posts(int uid, int pid, String d) {
         this.data = d;
-        this.postid = pid;
         this.userid = uid;
+        this.postid = pid;
 
         postidMap.put(postid, this);
     }

@@ -1,6 +1,7 @@
 package simpleserver;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -8,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.lang.Object;
 
 class Response {
 
@@ -24,7 +26,7 @@ class Response {
         Gson gson = new Gson();
         BufferedReader br;
         try {
-            br = new BufferedReader(new FileReader("src/simpleserver/Data.json"));
+            br = new BufferedReader(new FileReader("../dataGenerator/data.json"));
             JsonParser jsonParser = new JsonParser();
             JsonObject obj = jsonParser.parse(br).getAsJsonObject();
 
@@ -43,7 +45,7 @@ class Response {
         Gson gson = new Gson();
         BufferedReader br;
         try {
-            br = new BufferedReader(new FileReader("src/simpleserver/Data.json"));
+            br = new BufferedReader(new FileReader("../dataGenerator/data.json"));
             JsonParser jsonParser = new JsonParser();
             JsonObject obj = jsonParser.parse(br).getAsJsonObject();
 
@@ -51,7 +53,7 @@ class Response {
             allPs = posts;
             JSONallPosts = gson.toJson(posts);
             for (int i = 0; i < posts.length; i++) {
-                posts[i] = new Posts(posts[i].getPostId(), posts[i].getUserId(), posts[i].getData());
+                posts[i] = new Posts(posts[i].getUserId(), posts[i].getPostId(), posts[i].getData());
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -60,6 +62,10 @@ class Response {
 
     private static String getUsers() {
         return JSONallUsers;
+    }
+
+    private static String getPosts() {
+        return JSONallPosts;
     }
 
     private static Boolean PostfindUid(int uid){
@@ -82,11 +88,6 @@ class Response {
         return Found;
     }
 
-    private static String getPosts() {
-        return JSONallPosts;
-    }
-
-
     public Response(String url) {
     }
 
@@ -95,10 +96,11 @@ class Response {
         String[] urlParts = fullAddress.split(" /| |/|\\?|=|&");
         String endpoint = urlParts[1];
         String response = "";
-        String statusOK = "{\"status: \"\"OK\", ";
-        String statusError = "{\"status: \"\"Error\"} ";
-        String statusEntries = "\"entries\" : ";
-        String statusEnd = ", \"data\": ";
+        String statusOK = ",\"status\":\"OK\",";
+        String statusError = "{\"status\": \"Error - Not Value\"}";
+        String statusEntries = "\"entries\":";
+        String statusEnd = "{\"data\":";
+        String End = "}";
         Gson gson = new Gson();
         int li;
         int uid;
@@ -116,14 +118,14 @@ class Response {
                             count++;
                         }
                     }
-                    response = statusOK + statusEntries + count + statusEnd + gson.toJson(usersbyUID);
+                    response = statusEnd + gson.toJson(usersbyUID) + statusOK + statusEntries + count + End;
                 } else {
                     response = statusError;
                 }
                 return response;
             }
             response = String.valueOf(getUsers());
-            response = statusOK + statusEntries + allUs.length + statusEnd + response;
+            response = statusEnd + response + statusOK + statusEntries + allUs.length + End;
             return response;
         }
 
@@ -144,7 +146,7 @@ class Response {
                         }
                     }
                     System.out.println("entries: " + usersbyUID.size());
-                    response = statusOK + statusEntries + count + statusEnd + gson.toJson(usersbyUID);
+                    response = statusEnd + gson.toJson(usersbyUID) + statusOK + statusEntries + count + End;
                 }
                 return response;
             }
@@ -160,13 +162,18 @@ class Response {
                         if (urlParts[4].equalsIgnoreCase("maxlength")){
                             for (int i = 0; i < allPs.length; i++) {
                                 if (allPs[i].getPostId() == uid) {
-                                    String newData = allPs[i].getData().substring(0, Math.min(allPs[i].getData().length(), Integer.parseInt(urlParts[5])));
-                                    Posts newPost = new Posts(allPs[i].getPostId(), allPs[i].getUserId(), newData);
+                                    String newData = "";
+                                    if(Integer.parseInt(urlParts[5]) > allPs[i].getData().length()){
+                                        newData = allPs[i].getData();
+                                    }else{
+                                        newData = allPs[i].getData().substring(0, Math.min(allPs[i].getData().length(), Integer.parseInt(urlParts[5])));
+                                    }
+                                    Posts newPost = new Posts( allPs[i].getUserId(),allPs[i].getPostId(), newData);
                                     postsbyPID.add(newPost);
                                     count++;
                                 }
                             }
-                            response = statusOK + statusEntries + count + statusEnd + gson.toJson(postsbyPID);
+                            response = statusEnd + gson.toJson(postsbyPID) + statusOK + statusEntries + count + End;
                             return response;
                         }
                     }else{
@@ -177,15 +184,53 @@ class Response {
                             }
                         }
                     }
-                    response = statusOK + statusEntries + count + statusEnd + gson.toJson(postsbyPID);
+                    response = statusEnd + gson.toJson(postsbyPID) + statusOK + statusEntries + count + End;
                 }
                 return response;
             }
+            else if (urlParts[2].equalsIgnoreCase("maxlength")) {
+                uid = Integer.parseInt(urlParts[5]);
+                PostfindPid(uid);
+                if(Found == false){
+                    response = statusError;
+                } else {
+                    int count = 0;
+                    ArrayList<Posts> postsbyPID = new ArrayList<>();
+                    if (urlParts.length > 6) {
+                        if (urlParts[4].equalsIgnoreCase("postid")){
+                            for (int i = 0; i < allPs.length; i++) {
+                                if (allPs[i].getPostId() == uid) {
+                                    String newData = "";
+                                    if(Integer.parseInt(urlParts[5]) > allPs[i].getData().length()){
+                                        newData = allPs[i].getData();
+                                    }else{
+                                    newData = allPs[i].getData().substring(0, Math.min(allPs[i].getData().length(), Integer.parseInt(urlParts[5])));
+                                    }
+                                    Posts newPost = new Posts( allPs[i].getUserId(),allPs[i].getPostId(), newData);
+                                    postsbyPID.add(newPost);
+                                    count++;
+                                }
+                            }
+                            response = statusEnd + gson.toJson(postsbyPID) + statusOK + statusEntries + count + End;
+                            return response;
+                        }
+                    }else{
+                        for (int i = 0; i < allPs.length; i++) {
+                            if (allPs[i].getPostId() == uid) {
+                                postsbyPID.add(allPs[i]);
+                                count++;
+                            }
+                        }
+                    }
+                    response = statusEnd + gson.toJson(postsbyPID) + statusOK + statusEntries + count + End;
+                }
+                return response ;
+            }
             response = String.valueOf(getPosts());
-            response = statusOK + statusEntries + allUs.length + statusEnd + response;
+            response = statusEnd + response + statusOK + statusEntries + allUs.length + End;
             return response;
         }
-
-        return endpoint;
+        //return endpoint;
+        return response;
     }
 }
