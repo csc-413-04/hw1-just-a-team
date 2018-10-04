@@ -1,11 +1,11 @@
-String FullAddress = "GET /posts?maxlength=13&postid=38 HTTP/1.1";
+String FullAddress = "GET /posts?maxlength=13&postid=38 HTTP/1.1";\n
 String[] urlParts = [GET posts maxlength 13 postid 38 HTTP 1.1];
 
-urlParts[0] = "GET";
-urlParts[1] = "posts";
-urlParts[2] = "maxlength";
-urlParts[3] = "13";
-urlParts[4] = "postid";
-urlParts[5] = "38";
-urlParts[6] = "HTTP";
+urlParts[0] = "GET";\n
+urlParts[1] = "posts";\n
+urlParts[2] = "maxlength";\n
+urlParts[3] = "13";\n
+urlParts[4] = "postid";\n
+urlParts[5] = "38";\n
+urlParts[6] = "HTTP";\n
 urlParts[7] = "1.1";
