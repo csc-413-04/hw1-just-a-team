@@ -18,6 +18,8 @@ class Response {
     private static Users[] allUs = null;
     private static Posts[] allPs = null;
 
+    private static Boolean Found = false;
+
     public static void initializeUsers() {
         Gson gson = new Gson();
         BufferedReader br;
@@ -56,9 +58,28 @@ class Response {
         }
     }
 
-
     private static String getUsers() {
         return JSONallUsers;
+    }
+
+    private static Boolean PostfindUid(int uid){
+        Found = false;
+        for (int i = 0; i < allPs.length; i++) {
+            if (allPs[i].getUserId() == uid) {
+                Found = true;
+            }
+        }
+        return Found;
+    }
+
+    private static Boolean PostfindPid(int uid){
+        Found = false;
+        for (int i = 0; i < allPs.length; i++) {
+            if (allPs[i].getPostId() == uid) {
+                Found = true;
+            }
+        }
+        return Found;
     }
 
     private static String getPosts() {
@@ -71,8 +92,8 @@ class Response {
 
     public static String getBody(String fullAddress) {
 
-        String[] urlParts = fullAddress.split(" ");
-        String parsedUrl = urlParts[1];
+        String[] urlParts = fullAddress.split(" /| |/|\\?|=|&");
+        String endpoint = urlParts[1];
         String response = "";
         String statusOK = "{\"status: \"\"OK\", ";
         String statusError = "{\"status: \"\"Error\"} ";
@@ -83,89 +104,88 @@ class Response {
         int uid;
 
 
-        if (parsedUrl.equals("/user")) {
+        if (endpoint.equalsIgnoreCase("user")) {
+            if (urlParts[2].equalsIgnoreCase("userid")) {
+                uid = Integer.parseInt(urlParts[3]);
+                int count = 0;
+                if (uid < allUs.length) {
+                    ArrayList<Users> usersbyUID = new ArrayList<>();
+                    for (int i = 0; i < allUs.length; i++) {
+                        if (allUs[i].getUserid() == uid) {
+                            usersbyUID.add(allUs[i]);
+                            count++;
+                        }
+                    }
+                    response = statusOK + statusEntries + count + statusEnd + gson.toJson(usersbyUID);
+                } else {
+                    response = statusError;
+                }
+                return response;
+            }
             response = String.valueOf(getUsers());
-            //System.out.println(response);
-            //System.out.println();
             response = statusOK + statusEntries + allUs.length + statusEnd + response;
             return response;
         }
-        if (parsedUrl.equals("/User")) {
-            response = String.valueOf(getUsers());
-            return response;
-        }
-        if (parsedUrl.startsWith("/user?userid=")) {
-            li = parsedUrl.lastIndexOf("=");
-            uid = Integer.valueOf(parsedUrl.substring(li + 1));
-            //System.out.println("test="+uid);
-            if (uid < allUs.length) {
-                ArrayList<Users> usersbyUID = new ArrayList<>();
-                for (int i = 0; i < allUs.length; i++) {
-                    if (allUs[i].getUserid() == uid) {
-                        usersbyUID.add(allUs[i]);
+
+        if (endpoint.equalsIgnoreCase("Posts")) {
+            if (urlParts[2].equalsIgnoreCase("userid")) {
+                uid = Integer.parseInt(urlParts[3]);
+                int count = 0;
+                PostfindUid(uid);
+                if (Found == false) {
+                    //response = gson.toJson("User " + uid + " is not exist");
+                    response = statusError;
+                } else {
+                    ArrayList<Posts> usersbyUID = new ArrayList<>();
+                    for (int i = 0; i < allPs.length; i++) {
+                        if (allPs[i].getUserId() == uid) {
+                            usersbyUID.add(allPs[i]);
+                            count++;
+                        }
                     }
+                    System.out.println("entries: " + usersbyUID.size());
+                    response = statusOK + statusEntries + count + statusEnd + gson.toJson(usersbyUID);
                 }
-                response = gson.toJson(usersbyUID);
-            } else {
-                //response = gson.toJson();
-            }
-            return response;
-        }
-
-
-        if (parsedUrl.equals("/Posts")) {
-            response = String.valueOf(getPosts());
-            return response;
-        }
-        if (parsedUrl.equals("/posts")) {
-            response = String.valueOf(getPosts());
-            return response;
-        }
-
-        if (parsedUrl.startsWith("/posts?userid=")) {
-            li = parsedUrl.lastIndexOf("=");
-            uid = Integer.valueOf(parsedUrl.substring(li + 1));
-            //System.out.println("test="+uid);
-            if (uid >= allUs.length) {
-                //response = gson.toJson("User " + uid + " is not exist");
-            } else {
-                ArrayList<Posts> postsbyUID = new ArrayList<>();
-                for (int i = 0; i < allPs.length; i++) {
-                    if (allPs[i].getUserId() == uid) {
-                        postsbyUID.add(allPs[i]);
-                    }
-                }
-                System.out.println("entries: " + postsbyUID.size());
-                response = gson.toJson(postsbyUID);
-            }
-            return response;
-        }
-
-        if (parsedUrl.startsWith("/posts?postid=")) {
-            int li_check = parsedUrl.lastIndexOf("&");
-            System.out.println(li_check);
-            if (li_check == -1) {
-                li = parsedUrl.lastIndexOf("=");
-                //System.out.println(li);
-                uid = Integer.valueOf(parsedUrl.substring(li + 1));
-                //System.out.println(uid);
-                //System.out.println("test="+uid);
-
-                ArrayList<Posts> postsbyUID = new ArrayList<>();
-                for (int i = 0; i < allPs.length; i++) {
-                    if (allPs[i].getPostId() == uid) {
-                        postsbyUID.add(allPs[i]);
-                    }
-                }
-                System.out.println("entries: " + postsbyUID.size());
-                response = gson.toJson(postsbyUID);
                 return response;
-            } else {
-
             }
+            else if (urlParts[2].equalsIgnoreCase("postid")) {
+                uid = Integer.parseInt(urlParts[3]);
+                PostfindPid(uid);
+                if(Found == false){
+                    response = statusError;
+                } else {
+                    int count = 0;
+                    ArrayList<Posts> postsbyPID = new ArrayList<>();
+                    if (urlParts.length > 6) {
+                        if (urlParts[4].equalsIgnoreCase("maxlength")){
+                            for (int i = 0; i < allPs.length; i++) {
+                                if (allPs[i].getPostId() == uid) {
+                                    String newData = allPs[i].getData().substring(0, Math.min(allPs[i].getData().length(), Integer.parseInt(urlParts[5])));
+                                    Posts newPost = new Posts(allPs[i].getPostId(), allPs[i].getUserId(), newData);
+                                    postsbyPID.add(newPost);
+                                    count++;
+                                }
+                            }
+                            response = statusOK + statusEntries + count + statusEnd + gson.toJson(postsbyPID);
+                            return response;
+                        }
+                    }else{
+                        for (int i = 0; i < allPs.length; i++) {
+                            if (allPs[i].getPostId() == uid) {
+                                postsbyPID.add(allPs[i]);
+                                count++;
+                            }
+                        }
+                    }
+                    response = statusOK + statusEntries + count + statusEnd + gson.toJson(postsbyPID);
+                }
+                return response;
+            }
+            response = String.valueOf(getPosts());
+            response = statusOK + statusEntries + allUs.length + statusEnd + response;
+            return response;
         }
 
-
-        return parsedUrl;
+        return endpoint;
     }
 }

@@ -69,7 +69,7 @@ class SimpleServer {
         // Body of our response
         writer.println("<h2>HW1-Rest-API </h2>");
         writer.println("<h2> Group: Just-a-team </h2>");
-        writer.println("<h4> Name: Tuan Le </h4>");
+        writer.println("<h4> Name: Tuan Le, Frank Yang, Jia Wu, Carlos Velasco </h4>");
         writer.println("<p>Server: TEST</p>");
         writer.println("<p>Port: " + setPort + "</p>");
 
