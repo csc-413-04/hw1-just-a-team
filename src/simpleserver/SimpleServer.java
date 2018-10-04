@@ -66,6 +66,10 @@ class SimpleServer {
                 writer.println("Content-type: text/html");
                 writer.println("");
 
+                writer.println("<style type=\"text/css\">.tab { margin-left: 40px; }</style>");
+                writer.println("<style type=\"text/css\">.tab2 { margin-left: 80px; }</style>");
+                writer.println("<style type=\"text/css\">.tab3 { margin-left: 120px; }</style>");
+
                 // Body of our response
                 writer.println("<h2>HW1-Rest-API </h2>");
                 writer.println("<h2> Group: Just-a-team </h2>");
@@ -75,11 +79,37 @@ class SimpleServer {
 
                 writer.println(Response.getBody(urlLink));
                 System.out.println("SimpleServer: " + Response.getBody(urlLink));
+                writer.println(htmlFormat(Response.getBody(urlLink)));
                 dong.close();
             }
         } catch (IOException e) {
             System.out.println("Error opening socket");
             System.exit(1);
         }
+    }
+
+    public static String htmlFormat(String str){
+        str = "<p>" + str;
+        int li = str.lastIndexOf("[");
+        System.out.println("[ " + li);
+        String temp1 = str.substring(0,li+1);
+        String temp2 = str.substring(li+1, str.length());
+        System.out.println("temp1:  " + temp1);
+        System.out.println("temp2:  " + temp2);
+
+        temp1 = temp1.replace(",", ",</p><p  class=\"tab\">");
+        temp1 = temp1.replace("{", "{</p><p  class=\"tab\">");
+        temp1 = temp1 +"</p>";
+
+        temp2 = "<p  class=\"tab2\">"+temp2 ;
+        temp2 = temp2.replace("{", "{</p><p  class=\"tab3\">");
+        temp2 = temp2.replace(",\"", ",</p><p  class=\"tab3\">\"");
+        temp2 = temp2.replace("},{", "</p><p  class=\"tab3\">},</p><p  class=\"tab3\">{</p>");
+        temp2 = temp2.replace("}]", "</p><p  class=\"tab3\">}]");
+        temp2 = temp2.replace("]", "</p><p  class=\"tab2\">]");
+        temp2 = temp2 + "</p><p>}</p>";
+        str = temp1 + temp2;
+        return str;
+
     }
 }
