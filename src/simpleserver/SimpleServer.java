@@ -1,18 +1,42 @@
 package simpleserver;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 class SimpleServer {
 
+    public static String toPrettyFormat(String jsonString)
+    {
+        JsonObject convertedObject = new Gson().fromJson(jsonString, JsonObject.class);
+
+//        JsonParser parser = new JsonParser();
+//        JsonObject json = parser.parse(jsonString).getAsJsonObject();
+
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String prettyJson = gson.toJson(convertedObject);
+
+        return prettyJson;
+    }
+
   public static void main(String[] args) throws IOException {
+
+    Response.initializeUsers();
+    Response.initializePosts();
+    String urlLink = null;
+
     ServerSocket ding;
     Socket dong = null;
     String resource = null;
+    int setPort = 1299;
     try {
-      ding = new ServerSocket(1299);
-      System.out.println("Opened socket " + 1299);
+      ding = new ServerSocket(setPort);
+      System.out.println("Opened socket " + setPort);
       while (true) {
 
         // keeps listening for new clients, one at a time
@@ -25,10 +49,12 @@ class SimpleServer {
 
         InputStream stream = dong.getInputStream();
         BufferedReader in = new BufferedReader(new InputStreamReader(stream));
+
         try {
 
           // read the first line to get the request method, URI and HTTP version
           String line = in.readLine();
+          urlLink = line;
           System.out.println("----------REQUEST START---------");
           System.out.println(line);
           // read only headers
@@ -59,9 +85,18 @@ class SimpleServer {
         writer.println("");
 
         // Body of our response
-        writer.println("<h1>Some cool response!</h1>");
+        //writer.println("<h2>HW1-Rest-API </h2>");
+        //writer.println("<h2> Group: Just-a-team </h2>");
+        //writer.println("<h4> Name: Tuan Le, Frank Yang, Jia Wu, Carlos Velasco </h4>");
+        //writer.println("<p>Server: TEST</p>");
+        //writer.println("<p>Port: " + setPort + "</p>");
+        writer.println(Response.getBody(urlLink));
+          //String response = toPrettyFormat(Response.getBody(urlLink));
+         // writer.println(response);
 
-        dong.close();
+        System.out.println(Response.getBody(urlLink));
+
+          dong.close();
       }
     } catch (IOException e) {
       System.out.println("Error opening socket");
