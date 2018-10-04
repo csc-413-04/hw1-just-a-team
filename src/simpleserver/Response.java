@@ -201,10 +201,10 @@ class Response {
                             for (int i = 0; i < allPs.length; i++) {
                                 if (allPs[i].getPostId() == uid) {
                                     String newData = "";
-                                    if(Integer.parseInt(urlParts[5]) > allPs[i].getData().length()){
+                                    if(Integer.parseInt(urlParts[3]) > allPs[i].getData().length()){
                                         newData = allPs[i].getData();
                                     }else{
-                                    newData = allPs[i].getData().substring(0, Math.min(allPs[i].getData().length(), Integer.parseInt(urlParts[5])));
+                                    newData = allPs[i].getData().substring(0, Math.min(allPs[i].getData().length(), Integer.parseInt(urlParts[3])));
                                     }
                                     Posts newPost = new Posts( allPs[i].getUserId(),allPs[i].getPostId(), newData);
                                     postsbyPID.add(newPost);
