@@ -1,28 +1,10 @@
 package simpleserver;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 class SimpleServer {
-
-    public static String toPrettyFormat(String jsonString)
-    {
-        JsonObject convertedObject = new Gson().fromJson(jsonString, JsonObject.class);
-
-//        JsonParser parser = new JsonParser();
-//        JsonObject json = parser.parse(jsonString).getAsJsonObject();
-
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String prettyJson = gson.toJson(convertedObject);
-
-        return prettyJson;
-    }
 
   public static void main(String[] args) throws IOException {
 
