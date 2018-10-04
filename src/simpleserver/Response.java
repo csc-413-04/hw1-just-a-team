@@ -135,9 +135,10 @@ class Response {
                     postsbyUID.add(allPs[i]);
                 }
             }
-            System.out.println("entries1: " + postsbyUID.size());
+            //System.out.println("entries1: " + postsbyUID.size());
             if (postsbyUID.size() != 0) {
                 response = gson.toJson(postsbyUID);
+                response = statusOK + statusEntries + postsbyUID.size() + statusEnd + response;
             } else {
                 response = statusError;
             }
@@ -163,11 +164,12 @@ class Response {
                 System.out.println("entries: " + postsbyUID.size());
                 if (postsbyUID.size() != 0) {
                     response = gson.toJson(postsbyUID);
+                    response = statusOK + statusEntries + postsbyUID.size() + statusEnd + response;
                 } else {
                     response = statusError;
                 }
             }
-            ///posts?postid= &maxlength
+            //posts?postid= &maxlength
             else {
                 //System.out.println(parsedUrl.substring(li_check,parsedUrl.length()));
                 String postidStr = parsedUrl.substring(0, li_check);
@@ -204,6 +206,7 @@ class Response {
 
                     if (postsbyUID.size() != 0) {
                         response = gson.toJson(postsbyUID);
+                        response = statusOK + statusEntries + postsbyUID.size() + statusEnd + response;
                         //System.out.println(response);
                     } else {
                         response = statusError;
