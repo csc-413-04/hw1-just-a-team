@@ -21,12 +21,13 @@ class Response {
     private static Posts[] allPs = null;
 
     private static Boolean Found = false;
+    private static String Location ="../CSC413/dataGenerator/data.json";
 
     public static void initializeUsers() {
         Gson gson = new Gson();
         BufferedReader br;
         try {
-            br = new BufferedReader(new FileReader("../dataGenerator/data.json"));
+            br = new BufferedReader(new FileReader(Location));
             JsonParser jsonParser = new JsonParser();
             JsonObject obj = jsonParser.parse(br).getAsJsonObject();
 
@@ -45,7 +46,7 @@ class Response {
         Gson gson = new Gson();
         BufferedReader br;
         try {
-            br = new BufferedReader(new FileReader("../dataGenerator/data.json"));
+            br = new BufferedReader(new FileReader(Location));
             JsonParser jsonParser = new JsonParser();
             JsonObject obj = jsonParser.parse(br).getAsJsonObject();
 
