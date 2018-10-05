@@ -21,7 +21,7 @@ class Response {
     private static Posts[] allPs = null;
 
     private static Boolean Found = false;
-    private static String Location ="../CSC413/dataGenerator/data.json";
+    private static String Location ="../dataGenerator/data.json";
 
     public static void initializeUsers() {
         Gson gson = new Gson();
