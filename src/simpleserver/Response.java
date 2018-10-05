@@ -164,8 +164,9 @@ class Response {
                             for (int i = 0; i < allPs.length; i++) {
                                 if (allPs[i].getPostId() == uid) {
                                     String newData = "";
-                                    if(Integer.parseInt(urlParts[5]) > allPs[i].getData().length()){
-                                        newData = allPs[i].getData();
+                                    if(Integer.parseInt(urlParts[5]) < allPs[i].getData().length()){
+                                        response = statusEnd + "[]" + statusOK + statusEntries + count + End;
+                                        return response;
                                     }else{
                                         newData = allPs[i].getData().substring(0, Math.min(allPs[i].getData().length(), Integer.parseInt(urlParts[5])));
                                     }
@@ -202,8 +203,9 @@ class Response {
                             for (int i = 0; i < allPs.length; i++) {
                                 if (allPs[i].getPostId() == uid) {
                                     String newData = "";
-                                    if(Integer.parseInt(urlParts[3]) > allPs[i].getData().length()){
-                                        newData = allPs[i].getData();
+                                    if(Integer.parseInt(urlParts[3]) < allPs[i].getData().length()){
+                                        response = statusEnd + "[]" + statusOK + statusEntries + count + End;
+                                        return response;
                                     }else{
                                     newData = allPs[i].getData().substring(0, Math.min(allPs[i].getData().length(), Integer.parseInt(urlParts[3])));
                                     }
