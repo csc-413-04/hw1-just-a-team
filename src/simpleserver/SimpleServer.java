@@ -7,14 +7,18 @@ import java.net.Socket;
 class SimpleServer {
 
   public static void main(String[] args) throws IOException {
+
+    Response.initializeUsers();
+    Response.initializePosts();
+    String urlLink = null;
+
     ServerSocket ding;
     Socket dong = null;
     String resource = null;
+    int setPort = 1299;
     try {
-      ding = new ServerSocket(1299);
-      System.out.println("Opened socket " + 1299);
-
-      // **Make Database class and load data
+      ding = new ServerSocket(setPort);
+      System.out.println("Opened socket " + setPort);
       while (true) {
 
         // keeps listening for new clients, one at a time
@@ -27,10 +31,12 @@ class SimpleServer {
 
         InputStream stream = dong.getInputStream();
         BufferedReader in = new BufferedReader(new InputStreamReader(stream));
+
         try {
 
           // read the first line to get the request method, URI and HTTP version
-          String line = in.readLine();      //**Split string and get arg[1]
+          String line = in.readLine();
+          urlLink = line;
           System.out.println("----------REQUEST START---------");
           System.out.println(line);
           // read only headers
@@ -57,18 +63,22 @@ class SimpleServer {
         writer.println("HTTP/1.1 200 OK");
         writer.println("Server: TEST");
         writer.println("Connection: close");
-        writer.println("Content-type: text/html"); //** Content-type: application/json
+        writer.println("Content-type: text/html");
         writer.println("");
 
         // Body of our response
-        // ** put rest of logic here
-        //  1. check if input (url) is valid or not!
-        //  2. extract the query separated by '&'
-        // then use factory
-        // processor.process()
-        writer.println("<h1>Some cool response!</h1>"); //**outputs (gson.toJson(response))
+        //writer.println("<h2>HW1-Rest-API </h2>");
+        //writer.println("<h2> Group: Just-a-team </h2>");
+        //writer.println("<h4> Name: Tuan Le, Frank Yang, Jia Wu, Carlos Velasco </h4>");
+        //writer.println("<p>Server: TEST</p>");
+        //writer.println("<p>Port: " + setPort + "</p>");
+        writer.println(Response.getBody(urlLink));
+          //String response = toPrettyFormat(Response.getBody(urlLink));
+         // writer.println(response);
 
-        dong.close();
+        System.out.println(Response.getBody(urlLink));
+
+          dong.close();
       }
     } catch (IOException e) {
       System.out.println("Error opening socket");
